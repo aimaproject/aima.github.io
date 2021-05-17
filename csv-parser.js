@@ -29,6 +29,7 @@ fs.readFile('index-template.html', 'utf8' , (indexErr, indexTemplate) => {
                 var rendered = contentTemplate;
                 for(var j = 0; j < parts.length - 1; j++){
                     var value = parts[j].trim();
+                    var thmbValue = "";
                     value = value.replace("�",'"');
                     if(j==2){
                         console.log("format ", value);
@@ -38,23 +39,31 @@ fs.readFile('index-template.html', 'utf8' , (indexErr, indexTemplate) => {
                     }
                     if(j == 9 || j == 10 || j == 11 || j == 12 || j == 13 ){
                         value = value.substring(value.lastIndexOf("\\") - 2, value.length);
+                        var valueParts = value.split("\\");
+                        thmbValue = valueParts[0] + "\\thumbs\\" + valueParts[1];
                     }
                     var regex = new RegExp("\\{"+j+"\\}","g");
+                    var regexThmb = new RegExp("\\{"+j+"b}","g");
                     if(j == 10 || j == 11 || j == 12 || j == 13){
                         if(value == "Unknown"){
                             rendered = rendered.replace(regex,"");
+                            rendered = rendered.replace(regexThmb, "");
                         } else {
                             if(j == 10 || j == 11){
                                 rendered = rendered.replace(/class=\"hidden1\"/g,'class=""')
                                 rendered = rendered.replace(regex,value);
+                                rendered = rendered.replace(regexThmb, thmbValue);
                             } else if(j == 12 || j == 13){
                                 rendered = rendered.replace(/class=\"hidden2\"/g,'class=""')
                                 rendered = rendered.replace(regex,value);
+                                rendered = rendered.replace(regexThmb, thmbValue);
                             }
                             rendered = rendered.replace(/class=\"hidden\"/g,'class=""')
                         }
                     } else {
                         rendered = rendered.replace(regex,value);
+                        rendered = rendered.replace(regexThmb, thmbValue);
+                        console.log(regexThmb)
                     }
                     if(j == 16){
                         value = value.substring(value.lastIndexOf("\\") - 5, value.length);
