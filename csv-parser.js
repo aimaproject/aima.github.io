@@ -1,8 +1,64 @@
-const fs = require('fs')
+const fs = require('fs');
 
-var args = process.argv.slice(2);
+const SOFTWARE_VERSION_COL = 0;
+const FREE_HOURS_COL = 1;
+const FORMAT_COL = 2;
+const OS_COL = 3;
+const PACKAGING_COL = 4;
+const PACKAGING_VARIANTS_COL = 5;
+const SOFTWARE_DATE_COL = 6;
+const FILE_LIST_COL = 7;
+const FILE_DETAILS_COL = 8;
+const DISC_IMG_COL = 9;
+const PKG_FRONT_COL = 10;
+const PKG_BACK_COL = 11;
+const PKG_FRONT_ALT_COL = 12;
+const PKG_BACK_ALT_COL = 13;
+const DESC_COL = 14;
+const INSTALLER_ICO_COL = 16;
+
+let args = process.argv.slice(2);
+
+let version = args[0];
+let years = args[1];
+
 console.log(args);
 
+
+function removeAllBackSlashes(val){
+    return val.replace(/\"/g,'');
+}
+
+function parseImageFileAndVersionFromUri(val){
+    let name = val.substring(val.lastIndexOf('\\') - 2, val.length);
+    let valueParts = name.split('\\');
+    return {
+        value: name,
+        thmbValue: valueParts[0] + '\\thumbs\\' + valueParts[1]
+    }
+}
+
+function renderImgAndThumb(rendered,regex,regexThmb,value,thmbValue){
+    rendered = rendered.replace(regex,value);
+    rendered = rendered.replace(regexThmb, thmbValue);
+    return rendered;
+}
+
+function manageImgAndThumb(rendered,value,num,regex,regexThmb){
+    var parsed = parseImageFileAndVersionFromUri(value);
+    value = parsed.value;
+    thmbValue = parsed.thmbValue;
+    if(value == 'Unknown'){
+        renderImgAndThumb(rendered,regex,regexThmb,'','');
+    } else {
+        let numberedRegex = new RegExp('class=\"hidden'+num+'\"','g');
+        rendered = rendered.replace(numberedRegex,'class=""');
+        rendered = rendered.replace(regex,value);
+        rendered = rendered.replace(regexThmb, thmbValue);
+        rendered = rendered.replace(/class=\"hiddenAll\"/g,'class=""');
+    }
+    return rendered
+}
 
 fs.readFile('index-template.html', 'utf8' , (indexErr, indexTemplate) => {
     if (indexErr) {
@@ -19,62 +75,58 @@ fs.readFile('index-template.html', 'utf8' , (indexErr, indexTemplate) => {
                 console.error(csvErr)
                 return
             }
-            var page = indexTemplate.replace("{caption}",args[0]);
-            page = page.replace("{years}",args[1]);
-            var csvLines = csv.split("symnewline");
+            var page = indexTemplate.replace('{caption}',version);
+            page = page.replace('{years}',years);
+            let csvLines = csv.split('symnewline');
+            let startingIndex = 1;//skip row 0 because its a header
             //console.log("csv lines ",csvLines);
-            for(var i = 1; i < csvLines.length - 1; i++){
-                var line = csvLines[i];
-                var parts = line.split(";")
+            for(var i = startingIndex; i < csvLines.length - 1; i++){
+                let row = csvLines[i];
+                let columns = row.split(';')
                 var rendered = contentTemplate;
-                for(var j = 0; j < parts.length - 1; j++){
-                    var value = parts[j].trim();
-                    var thmbValue = "";
-                    value = value.replace("�",'"');
-                    if(j==2){
-                        console.log("format ", value);
-                    }
-                    if( j== 5 || j == 7 || j == 8){
-                        value = value.replace(/\"/g,"");
-                    }
-                    if(j == 9 || j == 10 || j == 11 || j == 12 || j == 13 ){
-                        value = value.substring(value.lastIndexOf("\\") - 2, value.length);
-                        var valueParts = value.split("\\");
-                        thmbValue = valueParts[0] + "\\thumbs\\" + valueParts[1];
-                    }
-                    var regex = new RegExp("\\{"+j+"\\}","g");
-                    var regexThmb = new RegExp("\\{"+j+"b}","g");
-                    if(j == 10 || j == 11 || j == 12 || j == 13){
-                        if(value == "Unknown"){
-                            rendered = rendered.replace(regex,"");
-                            rendered = rendered.replace(regexThmb, "");
-                        } else {
-                            if(j == 10 || j == 11){
-                                rendered = rendered.replace(/class=\"hidden1\"/g,'class=""')
-                                rendered = rendered.replace(regex,value);
-                                rendered = rendered.replace(regexThmb, thmbValue);
-                            } else if(j == 12 || j == 13){
-                                rendered = rendered.replace(/class=\"hidden2\"/g,'class=""')
-                                rendered = rendered.replace(regex,value);
-                                rendered = rendered.replace(regexThmb, thmbValue);
-                            }
-                            rendered = rendered.replace(/class=\"hidden\"/g,'class=""')
-                        }
-                    } else {
-                        rendered = rendered.replace(regex,value);
-                        rendered = rendered.replace(regexThmb, thmbValue);
-                        console.log(regexThmb)
-                    }
-                    if(j == 16){
-                        value = value.substring(value.lastIndexOf("\\") - 5, value.length);
-                        page = page.replace("{installerIcon}", value);
-                    }
-                    console.log("part " + j +" is " + value);
+                for(var j = 0; j < columns.length - 1; j++){
+                    var value = columns[j].trim();
+                    var thmbValue = '';
+                    value = value.replace('�','"');
+                    var regex = new RegExp('\\{'+j+'\\}','g');
+                    var regexThmb = new RegExp('\\{'+j+'b}','g');
+                    switch(j){
+                        case PACKAGING_VARIANTS_COL:
+                        case FILE_LIST_COL:
+                        case FILE_DETAILS_COL:
+                            value = removeAllBackSlashes(value);
+                            rendered = rendered.replace(regex,value);
+                            break;
+                        case DISC_IMG_COL:
+                            var parsed = parseImageFileAndVersionFromUri(value);
+                            value = parsed.value;
+                            thmbValue = parsed.thmbValue;
+                            rendered = renderImgAndThumb(rendered,regex,regexThmb,value,thmbValue);
+                            break;
+                        case PKG_FRONT_COL:
+                            rendered = manageImgAndThumb(rendered,value,PKG_FRONT_COL,regex,regexThmb);
+                            break;
+                        case PKG_BACK_COL:
+                            rendered = manageImgAndThumb(rendered,value,PKG_BACK_COL,regex,regexThmb);
+                            break;
+                        case PKG_FRONT_ALT_COL:
+                             rendered = manageImgAndThumb(rendered,value,PKG_FRONT_ALT_COL,regex,regexThmb);
+                            break;
+                        case PKG_BACK_ALT_COL:
+                            rendered = manageImgAndThumb(rendered,value,PKG_BACK_ALT_COL,regex,regexThmb);
+                            break;
+                        case INSTALLER_ICO_COL:
+                            value = value.substring(value.lastIndexOf('\\') - 5, value.length);
+                            page = page.replace('{installerIcon}', value);
+                        default:
+                            rendered = rendered.replace(regex,value);
+                    }        
+                    //console.log('part ' + j + ' is ' + value);
                 }
-                page = page.replace("{content}", rendered + "\n" + "{content}")
+                page = page.replace('{content}', rendered + '\n' + '{content}');
             }
-            page = page.replace("{content}","");
-            page = page.replace("{nextLink}","index" + (parseInt(args[0]) +1) +".html");
+            page = page.replace('{content}','');
+            page = page.replace('{nextLink}','index' + (parseInt(args[0]) +1) +'.html');
             fs.writeFile('index'+args[0]+'.html', page, function (writeErr) {
                 if (writeErr) {
                     console.error(writeErr)

@@ -11,12 +11,14 @@ h1,h2 {
     text-align: center;
 }
 
-div.hidden {
+div.hiddenAll {
     visibility: hidden;
 }
 
-img.hidden1,
-img.hidden2 {
+img.hidden10,
+img.hidden11,
+img.hidden12,
+img.hidden13 {
     width: 0px;
     height: 0px;
 }
