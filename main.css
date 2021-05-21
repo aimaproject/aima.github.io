@@ -72,6 +72,15 @@ table td {
     text-align: center;
 }
 
+.entriesContainer {
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.entries {
+    color: blue;
+}
+
 .color-primary-0 { color: #FFFFFF } /* Main Primary color */
 .color-primary-1 { color: #FFF6E7 }
 .color-primary-2 { color: #F1F1F1 }
