@@ -7,4 +7,5 @@ node csv-parser 6 2000-2001
 node csv-parser 7 2001-2002
 node csv-parser 8 2002-2003
 node csv-parser 9 2003-2004
+node csv-parser SE 2005-2006
 node totals-updater

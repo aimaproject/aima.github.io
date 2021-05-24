@@ -127,7 +127,7 @@ fs.readFile('index-template.html', 'utf8', (indexErr, indexTemplate) => {
             }
             page = page.replace('{content}', '');
             page = page.replace('{nextLink}', 'index' + (parseInt(args[0]) + 1) + '.html');
-            page = page.replace(/\<span class=\"entries\"\>.*\<\/span\>/g,'<span class="entries">' + (csvLines.length - 2) + '</span> <span>entries</span>');
+            page = page.replace(/\<span class=\"entries\"\>.*\<\/span\>/g, '<span class="entries">' + (csvLines.length - 2) + '</span> <span>entries</span>');
             fs.writeFile('index' + args[0] + '.html', page, function(writeErr) {
                 if (writeErr) {
                     console.error(writeErr)
