@@ -65,6 +65,15 @@ table td {
     color: #F8F8F8;
 }
 
+.mission {
+    text-align: center;
+}
+
+.mission p {
+    max-width: 50%;
+    display: inline-block;
+}
+
 .footer {
     font-size: 11px;
     width: 70%;
