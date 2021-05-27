@@ -86,6 +86,14 @@ table td {
     text-align: center;
 }
 
+.homeScreen {
+    text-align: center;
+}
+
+.homeScreen img {
+    max-height: 240px;
+}
+
 .entries {
     color: blue;
 }

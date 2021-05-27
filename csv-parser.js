@@ -15,7 +15,10 @@ const PKG_BACK_COL = 11;
 const PKG_FRONT_ALT_COL = 12;
 const PKG_BACK_ALT_COL = 13;
 const DESC_COL = 14;
+const ID_COL = 15;
 const INSTALLER_ICO_COL = 16;
+const SIGN_IN_COL = 17;
+const HOME_COL = 18;
 
 let args = process.argv.slice(2);
 
@@ -118,6 +121,11 @@ fs.readFile('index-template.html', 'utf8', (indexErr, indexTemplate) => {
                         case INSTALLER_ICO_COL:
                             value = value.substring(value.lastIndexOf('\\') - 5, value.length);
                             page = page.replace('{installerIcon}', value);
+                            break;
+                        case HOME_COL:
+                            value = value.substring(value.lastIndexOf('\\') - 11, value.length);
+                            page = page.replace('{homeScreen}', value);
+                            break;
                         default:
                             rendered = rendered.replace(regex, value);
                     }
