@@ -1,0 +1,20 @@
+table {
+    font-family: Courier;
+    font-size: 8pt;
+    border-collapse: collapse;
+}
+
+table, td, th {
+  border: 1px solid black;
+  max-width: 150px;
+}
+
+table td div {
+    overflow: auto;
+    max-height: 100px;
+}
+
+.addContainer {
+    width: 100%;
+    text-align: center;
+}

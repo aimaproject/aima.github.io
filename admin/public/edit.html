@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <title>AOL Installation Media Archive Admin Tool Edit</title>
+        <link href="edit.css" rel="stylesheet">
+    </head>
+    <body>
+        <script type="text/javascript" src="edit.js"></script>
+        <form action="/edit-disc" method="post">
+            <fieldset>
+                <label for="id">Disc Id</label>
+                <input class="readOnlyText" type="text" name="id" id="id" readonly="readonly"></input>
+                <button type="button" name="delete" id="delete">Delete</button>
+            </fieldset>
+            <fieldset>
+                <div>
+                    <label for="version">Version</label>
+                    <select name="version" id="version"></select>
+                </div>
+                <div>
+                    <label for="hours">Hours</label>
+                    <select name="hours" id="hours"/></select>
+                </div>
+                <div>
+                    <label for="format">Format</label>
+                    <select name="format" id="format"/></select>
+                </div>
+                <div>
+                    <label for="os">Os</label>
+                    <select name="os" id="os"/></select>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div>
+                    <label for="packaging">Packaging</label>
+                    <select name="packaging" id="packaging"/></select>
+                </div>
+                <div>
+                    <label for="packaging_variants">Packaging Variants</label>
+                    <select name="packaging_variants" id="packaging_variants"/></select>
+                </div>
+                <div>
+                    <label for="date">Date</label>
+                    <input type="text" name="date" id="date"></input>
+                </div>
+            </fieldset>
+            <fieldset>
+                <label for="contents">Contents</label>
+                <textarea type="textarea" name="contents" id="contents"></textarea>
+                <label for="details">Details</label>
+                <textarea type="textarea" name="details" id="details"></textarea>
+            </fieldset>
+            <fieldset>
+                <div>
+                    <label for="disc_image">Disc Image</label>
+                    <input class="imgText" type="text" name="disc_image" id="disc_image"></input>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div>
+                    <label for="package_front">Package Front</label>
+                    <input class="imgText" type="text" name="package_front" id="package_front"></input>
+                </div>
+                <div>
+                    <label for="package_back">Package Back</label>
+                    <input class="imgText" type="text" name="package_back" id="package_back"></input>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div>
+                    <label for="package_alt_front">Package Alt Front</label>
+                    <input class="imgText" type="text" name="package_alt_front" id="package_alt_front"></input>
+                </div>
+                <div>
+                    <label for="package_alt_back">Package Alt Back</label>
+                    <input class="imgText" type="text" name="package_alt_back" id="package_alt_back"></input>
+                </div>
+            </fieldset>
+            <fieldset>
+                <label for="contents">Description</label>
+                <textarea type="textarea" name="description" id="description"></textarea>
+            </fieldset>
+            <fieldset>
+                <div>
+                    <label for="installer_icon">Installer Icon</label>
+                    <select name="installer_icon" id="installer_icon"/></select>
+                </div>
+                <div>
+                    <label for="home_screen">Home Screen</label>
+                    <select name="home_screen" id="home_screen"/></select>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="submitContainer">
+                <input type="submit" value="Submit">
+                </div>
+            </fieldset>
+        </form>
+    </body>
+</html>

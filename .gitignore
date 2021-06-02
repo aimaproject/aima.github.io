@@ -1,3 +1,4 @@
 *.ods
 *.csv
 *.psd
+admin/node_modules/

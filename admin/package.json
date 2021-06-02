@@ -1,0 +1,21 @@
+{
+    "name": "aimaproject.github.io",
+    "version": "0.0.1",
+    "description": "Admin utility for managing entries.",
+    "main": "admin.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/aimaproject/aimaproject.github.io.git"
+    },
+    "author": "aimaproject",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/aimaproject/aimaproject.github.io/issues"
+    },
+    "homepage": "https://github.com/aimaproject/aimaproject.github.io#readme",
+    "dependencies": {
+        "sqlite3": "*",
+        "express": "*",
+        "underscore": "*"
+    }
+}

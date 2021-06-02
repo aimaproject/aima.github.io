@@ -26,14 +26,14 @@ function getAndUpdate() {
         if (currentDoc < totalDoc) {
             getAndUpdate();
         } else {
-            fs.readFile('index.html', 'utf8', (csvErr, page) => {
+            fs.readFile('../index.html', 'utf8', (csvErr, page) => {
                 if (csvErr) {
                     console.error(csvErr)
                     return
                 }
                 page = page.replace(/\<span class=\"entries\"\>.*\<\/span\>/g, '<span class="entries">' + totalDiscs.toString() + '</span> <span>entries</span>');
                 console.log('writing output ' + totalDiscs.toString());
-                fs.writeFile('index.html', page, function(writeErr) {
+                fs.writeFile('../index.html', page, function(writeErr) {
                     if (writeErr) {
                         console.error(writeErr)
                         return
