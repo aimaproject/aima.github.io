@@ -15,10 +15,10 @@ div.hiddenAll {
     visibility: hidden;
 }
 
-img.hidden10,
-img.hidden11,
-img.hidden12,
-img.hidden13 {
+img.hiddenpackage_front,
+img.hiddenpackage_back,
+img.hiddenpackage_alt_front,
+img.hiddenpackage_alt_back {
     width: 0px;
     height: 0px;
 }

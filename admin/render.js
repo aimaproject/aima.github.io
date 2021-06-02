@@ -161,11 +161,11 @@ function renderPageTemplates(versions,indexTemplate,contentTemplate){
                         break;
                     case INSTALLER_ICO:
                         value = value.substring(value.lastIndexOf('\\') - 5, value.length);
-                        page = page.replace('{installerIcon}', value);
+                        page = page.replace('{installerIcon}', 'icons/' + value + '.ico');
                         break;
                     case HOME:
                         value = value.substring(value.lastIndexOf('\\') - 11, value.length);
-                        page = page.replace('{homeScreen}', value);
+                        page = page.replace('{homeScreen}', 'home-screen/' + value + '.png');
                         break;
                     default:
                         rendered = rendered.replace(regex, value);
@@ -174,7 +174,16 @@ function renderPageTemplates(versions,indexTemplate,contentTemplate){
             page = page.replace('{content}', rendered + '\n' + '{content}');
         });
         page = page.replace('{content}', '');
-        page = page.replace('{nextLink}', 'index' + (parseInt(version) + 1) + '.html');
+        var nextVersion = parseInt(version) + 1;
+        if(version == '9'){
+            nextVersion = 'SE';
+        };
+        console.log('version is ' + version);
+        if(version == 'SE'){
+            page = page.replace('class="links"', 'class="links hiddenAll"');
+        } else {
+            page = page.replace('{nextLink}', 'index' + nextVersion + '.html');
+        }
         page = page.replace(/\<span class=\"entries\"\>.*\<\/span\>/g, '<span class="entries">' + discs.length + '</span> <span>entries</span>');
         fs.writeFile('../index' + version + '.html', page, function(writeErr) {
             if (writeErr) {
@@ -230,7 +239,7 @@ function updateIndexPageTotal() {
                     return;
                 };
                 page = page.replace(/\<span class=\"entries\"\>.*\<\/span\>/g, '<span class="entries">' + count + '</span> <span>entries</span>');
-                console.log('writing output ' + page);
+                //console.log('writing output ' + page);
                 fs.writeFile('../index.html', page, function(writeErr) {
                     if (writeErr) {
                         console.error(writeErr);
