@@ -9,7 +9,7 @@ const OS = 'os';
 const PACKAGING = 'packaging';
 const PACKAGING_VARIANTS = 'packaging_variants';
 const SOFTWARE_DATE = 'date';
-const FILE_LIST= 'contents';
+const FILE_LIST = 'contents';
 const FILE_DETAILS = 'details';
 const DISC_IMG = 'disc_image';
 const PKG_FRONT = 'package_front';
@@ -92,7 +92,7 @@ function manageImgAndThumb(rendered, value, num, regex, regexThmb) {
     return rendered;
 };
 
-function fetchPageTemplatesAndData(){
+function fetchPageTemplatesAndData() {
     fs.readFile('template/index-template.html', 'utf8', (indexErr, indexTemplate) => {
         if (indexErr) {
             console.error(indexErr)
@@ -108,33 +108,51 @@ function fetchPageTemplatesAndData(){
                     if (err) {
                         console.error(err.message);
                     }
-                    let versions = _.groupBy(rows,(disc)=>{
-                        if(disc.version == 'SE'){
+                    let versions = _.groupBy(rows, (disc) => {
+                        if (disc.version == 'SE') {
                             return 'SE';
                         }
                         return disc.version[0];
                     });
-                    renderPageTemplates(versions,indexTemplate,contentTemplate);
+                    renderPageTemplates(versions, indexTemplate, contentTemplate);
                 });
             });
         });
     });
 };
 
-function renderPageTemplates(versions,indexTemplate,contentTemplate){
-    _.each(Object.keys(versions),(version)=>{
+function renderPageTemplates(versions, indexTemplate, contentTemplate) {
+    _.each(Object.keys(versions), (version) => {
         let discs = versions[version];
+        let sortedDiscs = _.sortBy(discs, (disc) => {
+            var year = '0';
+            var month = '0';
+            var day = '0';
+            if (disc.date !== 'Unknown') {
+                let dateParts = disc.date.split('/');
+                year = dateParts[2];
+                if (year[0] == '0') {
+                    year = '20' + year;
+                } else {
+                    year = '19' + year;
+                }
+                month = dateParts[0];
+                day = dateParts[1];
+            }
+            return Date.UTC(year, month, day);
+        });
         var page = indexTemplate.replace('{caption}', version);
-        page = page.replace('{years}', getYears(discs));
-        _.each(discs,(disc)=>{
+        page = page.replace('{years}', getYears(sortedDiscs));
+        _.each(sortedDiscs, (disc) => {
             var rendered = contentTemplate;
-            _.each(Object.keys(disc),(key)=>{
+            _.each(Object.keys(disc), (key) => {
                 var value = disc[key].toString().trim();
                 var thmbValue = '';
                 value = value.replace('�', '"');
+                value = value.replace('”', '"');
                 var regex = new RegExp('\\{' + key + '\\}', 'g');
                 var regexThmb = new RegExp('\\{' + key + 'b}', 'g');
-                switch(key) {
+                switch (key) {
                     case PACKAGING_VARIANTS:
                     case FILE_LIST:
                     case FILE_DETAILS:
@@ -175,16 +193,16 @@ function renderPageTemplates(versions,indexTemplate,contentTemplate){
         });
         page = page.replace('{content}', '');
         var nextVersion = parseInt(version) + 1;
-        if(version == '9'){
+        if (version == '9') {
             nextVersion = 'SE';
         };
         console.log('version is ' + version);
-        if(version == 'SE'){
+        if (version == 'SE') {
             page = page.replace('class="links"', 'class="links hiddenAll"');
         } else {
             page = page.replace('{nextLink}', 'index' + nextVersion + '.html');
         }
-        page = page.replace(/\<span class=\"entries\"\>.*\<\/span\>/g, '<span class="entries">' + discs.length + '</span> <span>entries</span>');
+        page = page.replace(/\<span class=\"entries\"\>.*\<\/span\>/g, '<span class="entries">' + sortedDiscs.length + '</span> <span>entries</span>');
         fs.writeFile('../index' + version + '.html', page, function(writeErr) {
             if (writeErr) {
                 console.error(writeErr)
@@ -195,39 +213,39 @@ function renderPageTemplates(versions,indexTemplate,contentTemplate){
     updateIndexPageTotal();
 }
 
-function getYears(discs){
+function getYears(discs) {
     let allYears = _.chain(discs)
-    .map((disc)=>{
-        if(disc.date != 'Unknown'){
-            return disc.date.split('/')[2];
-        }
-        return disc.date;
-    })
-    .filter((date)=>{
-        return date != 'Unknown';
-    })
-    .uniq()
-    .value();
+        .map((disc) => {
+            if (disc.date != 'Unknown') {
+                return disc.date.split('/')[2];
+            }
+            return disc.date;
+        })
+        .filter((date) => {
+            return date != 'Unknown';
+        })
+        .uniq()
+        .value();
     var startingYear = allYears[0];
     var endingYear = allYears[allYears.length - 1];
-    if(startingYear[0] == '9'){
+    if (startingYear[0] == '9') {
         startingYear = '19' + startingYear;
     } else {
         startingYear = '20' + startingYear;
     }
-    if(endingYear[0] == '9'){
+    if (endingYear[0] == '9') {
         endingYear = '19' + endingYear;
     } else {
         endingYear = '20' + endingYear;
     }
-    if(startingYear == endingYear){
+    if (startingYear == endingYear) {
         return startingYear;
     }
     return startingYear + '-' + endingYear;
 }
 
 function updateIndexPageTotal() {
-     db.serialize(() => {
+    db.serialize(() => {
         db.all(GET_DISCS_TOTAL_QUERY, (err, rows) => {
             if (err) {
                 console.error(err.message);

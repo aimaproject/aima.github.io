@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/Drone/Documents/workspace_js/aimaproject.github.io/admin/db/aima.db" readonly="0" foreign_keys="" case_sensitive_like="" temp_store="" wal_autocheckpoint="" synchronous=""/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="6327"/><column_width id="4" width="0"/></tab_structure><tab_browse><current_table name="0,0:"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="insert disc">INSERT INTO discs (version,free_hours,format,os,packaging,packaging_variants,date,contents,details,disc_image,package_front,package_back,package_alt_front,package_alt_back,description,installer_icon,home_screen) 
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/Users/Drone/Documents/workspace_js/aimaproject.github.io/admin/db/aima.db" readonly="0" foreign_keys="" case_sensitive_like="" temp_store="" wal_autocheckpoint="" synchronous=""/><attached/><window><main_tabs open="structure browser pragmas query" current="1"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="6327"/><column_width id="4" width="0"/></tab_structure><tab_browse><current_table name="0,0:"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="insert disc">INSERT INTO discs (version,free_hours,format,os,packaging,packaging_variants,date,contents,details,disc_image,package_front,package_back,package_alt_front,package_alt_back,description,installer_icon,home_screen) 
 VALUES(1,14,3,2,'Unknown','Unknown','Unknown','Unknown','Unknown','10\aol-10-disc.png','Unknown','Unknown','Unknown','Unknown','The disk that started it all. A macintosh only diskette with the original label scheme. White and red label on a beige diskette.',11,2);
 VALUES(1,14,3,2,'Unknown','Unknown','Unknown','Unknown','Unknown','10\aol-10-disc.png','Unknown','Unknown','Unknown','Unknown','The disk that started it all. A macintosh only diskette with the original label scheme. White and red label on a beige diskette.',1,icons\generic.png);</sql><sql name="render discs">SELECT discs.id,
 version.value as version,
@@ -28,15 +28,15 @@ JOIN package pv on discs.packaging_variants = pv.id
 JOIN home_screen on discs.home_screen = home_screen.id
 JOIN installer_icon on discs.installer_icon = installer_icon.id;</sql><sql name="SQL 4">UPDATE SQLITE_SEQUENCE SET SEQ=0 WHERE NAME='discs';
 
-INSERT INTO package (value) VALUES('Multiple');
+INSERT INTO package (value) VALUES('Wrapped Pamphlet');
 
 SELECT disc_image from discs
 WHERE discs.date = '06/27/95'
 AND version = 5
 ORDER BY disc_image ASC;
 
-DELETE from discs WHERE discs.id = 168;
-
+DELETE from discs WHERE discs.id = 168;
+
 SELECT COUNT(*) FROM discs;</sql><sql name="SQL 5">SELECT discs.id,
 version.id as version,
 hours.id as free_hours,
