@@ -1,7 +1,10 @@
 const express = require('express');
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({
+    extended: true
+}));
+app.use(express.static('public'));
 const port = 8080;
 
 const sqlite3 = require('sqlite3').verbose();
@@ -96,7 +99,7 @@ app.get('/discs', (req, res) => {
 
 app.get('/discs/version/:version/date/:date', (req, res) => {
     db.serialize(() => {
-        let normalizedDate = req.params.date.replace(/-/g,'/');
+        let normalizedDate = req.params.date.replace(/-/g, '/');
         db.all(`SELECT disc_image from discs
                 WHERE discs.date = '${normalizedDate}'
                 AND version = ${req.params.version}
@@ -238,7 +241,7 @@ app.get('/home-screens', (req, res) => {
 });
 
 app.post('/edit-disc', (req, res) => {
-    let update_statement = `UPDATE discs
+    let updateStatement = `UPDATE discs
                             SET version = ${req.body.version},
                                 free_hours = ${req.body.hours},
                                 format = ${req.body.format},
@@ -258,9 +261,8 @@ app.post('/edit-disc', (req, res) => {
                                 home_screen = ${req.body.home_screen}
                             WHERE
                                 id = ${req.body.id};`;
-    console.log('update statement ' + update_statement);
     db.serialize(() => {
-        db.all(update_statement, (err, rows) => {
+        db.all(updateStatement, (err, rows) => {
             if (err) {
                 console.error(err.message);
                 res.send('error');
@@ -272,7 +274,7 @@ app.post('/edit-disc', (req, res) => {
 });
 
 app.post('/add-disc', (req, res) => {
-    let insert_statement = `INSERT INTO discs
+    let insertStatement = `INSERT INTO discs
                             (version,free_hours,format,os,packaging,packaging_variants,date,contents,details,disc_image,package_front,package_back,
                             package_alt_front,package_alt_back,description,installer_icon,home_screen) 
                             VALUES(${req.body.version},
@@ -292,9 +294,8 @@ app.post('/add-disc', (req, res) => {
                                 '${req.body.description}',
                                 ${req.body.installer_icon},
                                 ${req.body.home_screen});`;
-    console.log('insert statement ' + insert_statement);
     db.serialize(() => {
-        db.all(insert_statement, (err, rows) => {
+        db.all(insertStatement, (err, rows) => {
             if (err) {
                 console.error(err.message);
                 res.send('error');
@@ -308,5 +309,3 @@ app.post('/add-disc', (req, res) => {
 app.listen(port, () => {
     console.log(`aima admin app running on http://localhost:${port}`)
 });
-
-app.use(express.static('public'));

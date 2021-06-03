@@ -16,14 +16,14 @@ xhr.onreadystatechange = (e) => {
         if (status === 0 || (status >= 200 && status < 400)) {
             let response = xhr.responseText;
             let versions = JSON.parse(response).version;
-            let version_select = document.getElementById('version');
+            let versionSelect = document.getElementById('version');
             versions.forEach((version) => {
                 let option = document.createElement('option');
                 option.value = version.id;
                 option.name = version.value;
                 option.id = version.value;
                 option.innerHTML = version.value;
-                version_select.appendChild(option);
+                versionSelect.appendChild(option);
             });
             getHours();
         } else {
@@ -40,15 +40,14 @@ function getHours() {
             if (status === 0 || (status >= 200 && status < 400)) {
                 let response = xhr.responseText;
                 let hours = JSON.parse(response).hours;
-                console.log(hours);
-                let hours_select = document.getElementById('hours');
+                let hoursSelect = document.getElementById('hours');
                 hours.forEach((hour) => {
                     let option = document.createElement('option');
                     option.value = hour.id;
                     option.name = hour.value;
                     option.id = hour.value;
                     option.innerHTML = hour.value;
-                    hours_select.appendChild(option);
+                    hoursSelect.appendChild(option);
                 });
                 getFormats();
             } else {
@@ -67,15 +66,14 @@ function getFormats() {
             if (status === 0 || (status >= 200 && status < 400)) {
                 let response = xhr.responseText;
                 let formats = JSON.parse(response).formats;
-                console.log(formats);
-                let format_select = document.getElementById('format');
+                let formatSelect = document.getElementById('format');
                 formats.forEach((format) => {
                     let option = document.createElement('option');
                     option.value = format.id;
                     option.name = format.value;
                     option.id = format.value;
                     option.innerHTML = format.value;
-                    format_select.appendChild(option);
+                    formatSelect.appendChild(option);
                 });
                 getOs();
             } else {
@@ -94,15 +92,14 @@ function getOs() {
             if (status === 0 || (status >= 200 && status < 400)) {
                 let response = xhr.responseText;
                 let os = JSON.parse(response).os;
-                console.log(os);
-                let os_select = document.getElementById('os');
+                let osSelect = document.getElementById('os');
                 os.forEach((system) => {
                     let option = document.createElement('option');
                     option.value = system.id;
                     option.name = system.value;
                     option.id = system.value;
                     option.innerHTML = system.value;
-                    os_select.appendChild(option);
+                    osSelect.appendChild(option);
                 });
                 getPackaging();
             } else {
@@ -121,22 +118,21 @@ function getPackaging() {
             if (status === 0 || (status >= 200 && status < 400)) {
                 let response = xhr.responseText;
                 let packaging = JSON.parse(response).packaging;
-                console.log(packaging);
-                let packaging_select = document.getElementById('packaging');
-                let packaging_variants_select = document.getElementById('packaging_variants');
+                let packagingSelect = document.getElementById('packaging');
+                let packagingVariantsSselect = document.getElementById('packaging_variants');
                 packaging.forEach((type) => {
                     let option = document.createElement('option');
                     option.value = type.id;
                     option.name = type.value;
                     option.id = type.value;
                     option.innerHTML = type.value;
-                    packaging_select.appendChild(option);
+                    packagingSelect.appendChild(option);
                     let option2 = document.createElement('option');
                     option2.value = type.id;
                     option2.name = type.value;
                     option2.id = type.value;
                     option2.innerHTML = type.value;
-                    packaging_variants_select.appendChild(option2);
+                    packagingVariantsSselect.appendChild(option2);
                 });
                 getInstallerIcons();
             } else {
@@ -155,15 +151,14 @@ function getInstallerIcons() {
             if (status === 0 || (status >= 200 && status < 400)) {
                 let response = xhr.responseText;
                 let icons = JSON.parse(response).icons;
-                console.log(icons);
-                let icons_select = document.getElementById('installer_icon');
+                let iconsSelect = document.getElementById('installer_icon');
                 icons.forEach((icon) => {
                     let option = document.createElement('option');
                     option.value = icon.id;
                     option.name = icon.value;
                     option.id = icon.value;
                     option.innerHTML = icon.value;
-                    icons_select.appendChild(option);
+                    iconsSelect.appendChild(option);
                 });
                 getHomeScreens();
             } else {
@@ -182,15 +177,14 @@ function getHomeScreens() {
             if (status === 0 || (status >= 200 && status < 400)) {
                 let response = xhr.responseText;
                 let screens = JSON.parse(response).screens;
-                console.log(screens);
-                let home_screen_select = document.getElementById('home_screen');
+                let homeScreenSelect = document.getElementById('home_screen');
                 screens.forEach((screen) => {
                     let option = document.createElement('option');
                     option.value = screen.id;
                     option.name = screen.value;
                     option.id = screen.value;
                     option.innerHTML = screen.value;
-                    home_screen_select.appendChild(option);
+                    homeScreenSelect.appendChild(option);
                 });
                 getDiscData();
             } else {
@@ -210,48 +204,47 @@ function getDiscData() {
             var status = xhr.status;
             if (status === 0 || (status >= 200 && status < 400)) {
                 let response = xhr.responseText;
-                if(response == 'deleted'){
+                if (response == 'deleted') {
                     document.body.innerHTML = 'deleted';
                     return;
                 }
                 let disc = JSON.parse(response).disc;
-                console.log(disc);
-                let id_text = document.getElementById('id');
-                id_text.value = disc.id;
-                let version_select = document.getElementById('version');
-                setSelected(version_select, disc.version);
-                let hours_select = document.getElementById('hours');
-                setSelected(hours_select, disc.free_hours);
-                let format_select = document.getElementById('format');
-                setSelected(format_select, disc.format);
-                let os_select = document.getElementById('os');
-                setSelected(os_select, disc.os);
-                let packaging_select = document.getElementById('packaging');
-                setSelected(packaging_select, disc.packaging);
-                let packaging_variants_select = document.getElementById('packaging_variants');
-                setSelected(packaging_variants_select, disc.packaging_variants);
-                let date_text = document.getElementById('date');
-                date_text.value = disc.date;
-                let contents_textarea = document.getElementById('contents');
-                contents_textarea.value = disc.contents;
-                let details_textarea = document.getElementById('details');
-                details_textarea.value = disc.details;
-                let disc_image_text = document.getElementById('disc_image');
-                disc_image_text.value = disc.disc_image;
-                let package_front_text = document.getElementById('package_front');
-                package_front_text.value = disc.package_front;
-                let package_back_text = document.getElementById('package_back');
-                package_back_text.value = disc.package_back;
-                let package_alt_front_text = document.getElementById('package_alt_front');
-                package_alt_front_text.value = disc.package_alt_front;
-                let package_alt_back_text = document.getElementById('package_alt_back');
-                package_alt_back_text.value = disc.package_alt_back;
+                let idText = document.getElementById('id');
+                idText.value = disc.id;
+                let versionSelect = document.getElementById('version');
+                setSelected(versionSelect, disc.version);
+                let hoursSelect = document.getElementById('hours');
+                setSelected(hoursSelect, disc.free_hours);
+                let formatSelect = document.getElementById('format');
+                setSelected(formatSelect, disc.format);
+                let osSelect = document.getElementById('os');
+                setSelected(osSelect, disc.os);
+                let packagingSelect = document.getElementById('packaging');
+                setSelected(packagingSelect, disc.packaging);
+                let packagingVariantsSelect = document.getElementById('packaging_variants');
+                setSelected(packagingVariantsSelect, disc.packaging_variants);
+                let dateText = document.getElementById('date');
+                dateText.value = disc.date;
+                let contentsTextarea = document.getElementById('contents');
+                contentsTextarea.value = disc.contents;
+                let detailsTextarea = document.getElementById('details');
+                detailsTextarea.value = disc.details;
+                let discImageText = document.getElementById('disc_image');
+                discImageText.value = disc.disc_image;
+                let packageFrontText = document.getElementById('package_front');
+                packageFrontText.value = disc.package_front;
+                let packageBackText = document.getElementById('package_back');
+                packageBackText.value = disc.package_back;
+                let packageAltFrontText = document.getElementById('package_alt_front');
+                packageAltFrontText.value = disc.package_alt_front;
+                let packageAltBackText = document.getElementById('package_alt_back');
+                packageAltBackText.value = disc.package_alt_back;
                 let description = document.getElementById('description');
                 description.value = disc.description;
-                let installer_icon_select = document.getElementById('installer_icon');
-                setSelected(installer_icon_select, disc.installer_icon);
-                let home_screen_select = document.getElementById('home_screen');
-                setSelected(home_screen_select, disc.home_screen);
+                let installerIconSelect = document.getElementById('installer_icon');
+                setSelected(installerIconSelect, disc.installer_icon);
+                let homeScreenSelect = document.getElementById('home_screen');
+                setSelected(homeScreenSelect, disc.home_screen);
             } else {
                 console.log(e);
             };
@@ -272,8 +265,8 @@ function setSelected(el, value) {
         if (option.value == value) {
             option.selected = true;
             break;
-        }
-    }
-}
+        };
+    };
+};
 
 xhr.send();

@@ -8,7 +8,7 @@ xhr.onreadystatechange = (e) => {
         if (status === 0 || (status >= 200 && status < 400)) {
             let response = xhr.responseText;
             let discs = JSON.parse(response).discs;
-            let discs_table = document.getElementById('discs');
+            let discsTable = document.getElementById('discs');
             discs.forEach((disc) => {
                 let row = document.createElement('tr');
                 let colEdit = document.createElement('td');
@@ -72,7 +72,7 @@ xhr.onreadystatechange = (e) => {
                 row.appendChild(col15);
                 row.appendChild(col16);
                 row.appendChild(col17);
-                discs_table.appendChild(row);
+                discsTable.appendChild(row);
             });
         } else {
             console.log(e);
