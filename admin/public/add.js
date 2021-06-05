@@ -223,7 +223,13 @@ function setDefaults() {
                 if (status === 0 || (status >= 200 && status < 400)) {
                     let response = xhr.responseText;
                     let discs = JSON.parse(response).discs;
-                    let imgPrefix = getImgPrefix(dateText, discs, versionSelect);
+                    let sortedDiscs = discs.sort((left, right) => {
+                        if (left.disc_image.split('-').length > right.disc_image.split('-').length) {
+                            return true;
+                        }
+                        return left.disc_image > right.disc_image;
+                    });
+                    let imgPrefix = getImgPrefix(dateText, sortedDiscs, versionSelect);
                     let discImageText = document.getElementById('disc_image');
                     discImageText.value = imgPrefix + '-disc.png';
                     let packageFrontText = document.getElementById('package_front');
@@ -249,6 +255,12 @@ function getImgPrefix(dateText, discs, versionSelect) {
     if (nomralizedDate[0] == '0') {
         nomralizedDate = nomralizedDate.substring(1, nomralizedDate.length);
     };
+    if(nomralizedDate.length == 5 && nomralizedDate[1] == 0){
+        nomralizedDate = nomralizedDate[0] + nomralizedDate.substring(2,5);
+    }
+    if(nomralizedDate.length == 6 && nomralizedDate[2] == 0){
+        nomralizedDate = nomralizedDate[0] + nomralizedDate[1] + nomralizedDate.substring(3,6);
+    }
     if (discs.length != 0) {
         let last = discs[discs.length - 1];
         let parts = last.disc_image.split(nomralizedDate);

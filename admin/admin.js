@@ -309,3 +309,5 @@ app.post('/add-disc', (req, res) => {
 app.listen(port, () => {
     console.log(`aima admin app running on http://localhost:${port}`)
 });
+
+//dir /a-D /S /B
