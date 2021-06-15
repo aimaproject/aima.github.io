@@ -273,6 +273,27 @@ function updateIndexPageTotal() {
             });
         });
     });
+    updateSiteMap();
 };
+
+function updateSiteMap() {
+    fs.readFile('../sitemap.xml', 'utf8', (err, siteMap) => {
+        if (err) {
+            console.error(err)
+            return
+        }
+        let regex = new RegExp('\<lastmod\>.*\<\/lastmod\>', 'g');
+        let now = new Date();
+        let dateStr = '<lastmod>' + now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate() + '</lastmod>';
+        siteMap = siteMap.replace(regex, dateStr);
+        fs.writeFile('../sitemap.xml', siteMap, function(writeErr) {
+            if (writeErr) {
+                console.error(writeErr);
+            };
+        });
+    });
+};
+
+
 
 fetchPageTemplatesAndData();
