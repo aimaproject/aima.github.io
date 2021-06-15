@@ -26,7 +26,8 @@ discs.package_alt_front,
 discs.package_alt_back,
 discs.description,
 installer_icon.value as installer_icon,
-home_screen.value as home_screen
+home_screen.value as home_screen,
+year_desc.value as year_desc
 FROM discs 
 JOIN os ON discs.os = os.id
 JOIN format ON discs.format = format.id
@@ -35,7 +36,8 @@ JOIN hours on discs.free_hours = hours.id
 JOIN package p on discs.packaging = p.id
 JOIN package pv on discs.packaging_variants = pv.id
 JOIN home_screen on discs.home_screen = home_screen.id
-JOIN installer_icon on discs.installer_icon = installer_icon.id;`;
+JOIN installer_icon on discs.installer_icon = installer_icon.id
+JOIN year_desc on discs.year_desc = year_desc.id;`;
 
 const GET_ALL_ENTRIES_QUERY_DISC = `SELECT discs.id,
 version.id as version,
@@ -54,7 +56,8 @@ discs.package_alt_front,
 discs.package_alt_back,
 discs.description,
 installer_icon.id as installer_icon,
-home_screen.id as home_screen
+home_screen.id as home_screen,
+year_desc.id as year_desc
 FROM discs 
 JOIN os ON discs.os = os.id
 JOIN format ON discs.format = format.id
@@ -64,6 +67,7 @@ JOIN package p on discs.packaging = p.id
 JOIN package pv on discs.packaging_variants = pv.id
 JOIN home_screen on discs.home_screen = home_screen.id
 JOIN installer_icon on discs.installer_icon = installer_icon.id
+JOIN year_desc on discs.year_desc = year_desc.id
 WHERE discs.id = `;
 
 const GET_VERSIONS_QUERY = `SELECT * FROM version`;
@@ -73,6 +77,7 @@ const GET_OS_QUERY = `SELECT * FROM os`;
 const GET_PACKAGE_QUERY = `SELECT * FROM package`;
 const GET_INSTALLER_ICONS_QUERY = `SELECT * FROM installer_icon`;
 const GET_HOME_SCREENS_QUERY = `SELECT * FROM home_screen`;
+const GET_YEAR_DESC_QUERY = `SELECT * FROM year_desc`;
 
 const DELETE_DISC_QUERY = `DELETE from discs WHERE discs.id = `;
 
@@ -240,6 +245,20 @@ app.get('/home-screens', (req, res) => {
     });
 });
 
+app.get('/year-descriptions', (req, res) => {
+    db.serialize(() => {
+        db.all(GET_YEAR_DESC_QUERY, (err, rows) => {
+            if (err) {
+                console.error(err.message);
+            }
+            let result = {
+                'descriptions': rows
+            };
+            res.send(result);
+        });
+    });
+});
+
 app.post('/edit-disc', (req, res) => {
     let updateStatement = `UPDATE discs
                             SET version = ${req.body.version},
@@ -258,7 +277,8 @@ app.post('/edit-disc', (req, res) => {
                                 package_alt_back = '${req.body.package_alt_back}',
                                 description = '${req.body.description}',
                                 installer_icon = ${req.body.installer_icon},
-                                home_screen = ${req.body.home_screen}
+                                home_screen = ${req.body.home_screen},
+                                year_desc = ${req.body.year_desc}
                             WHERE
                                 id = ${req.body.id};`;
     db.serialize(() => {
@@ -276,7 +296,7 @@ app.post('/edit-disc', (req, res) => {
 app.post('/add-disc', (req, res) => {
     let insertStatement = `INSERT INTO discs
                             (version,free_hours,format,os,packaging,packaging_variants,date,contents,details,disc_image,package_front,package_back,
-                            package_alt_front,package_alt_back,description,installer_icon,home_screen) 
+                            package_alt_front,package_alt_back,description,installer_icon,home_screen,year_desc) 
                             VALUES(${req.body.version},
                                 ${req.body.hours},
                                 ${req.body.format},
@@ -293,7 +313,8 @@ app.post('/add-disc', (req, res) => {
                                 '${req.body.package_alt_back}',
                                 '${req.body.description}',
                                 ${req.body.installer_icon},
-                                ${req.body.home_screen});`;
+                                ${req.body.home_screen},
+                                ${req.body.year_desc});`;
     db.serialize(() => {
         db.all(insertStatement, (err, rows) => {
             if (err) {

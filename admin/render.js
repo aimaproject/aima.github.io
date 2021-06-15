@@ -20,6 +20,7 @@ const DESC = 'description';
 const ID = 'id';
 const INSTALLER_ICO = 'installer_icon';
 const HOME = 'home_screen';
+const YEAR_DESC = 'year_desc';
 
 const GET_DISCS_TOTAL_QUERY = `SELECT COUNT(*) FROM discs;`;
 const GET_ALL_ENTRIES_QUERY = `SELECT discs.id,
@@ -39,7 +40,8 @@ discs.package_alt_front,
 discs.package_alt_back,
 discs.description,
 installer_icon.value as installer_icon,
-home_screen.value as home_screen
+home_screen.value as home_screen,
+year_desc.value as year_desc
 FROM discs 
 JOIN os ON discs.os = os.id
 JOIN format ON discs.format = format.id
@@ -48,6 +50,7 @@ JOIN hours on discs.free_hours = hours.id
 JOIN package p on discs.packaging = p.id
 JOIN package pv on discs.packaging_variants = pv.id
 JOIN home_screen on discs.home_screen = home_screen.id
+JOIN year_desc on discs.year_desc = year_desc.id
 JOIN installer_icon on discs.installer_icon = installer_icon.id;`;
 
 let db = new sqlite3.Database('db/aima.db', sqlite3.OPEN_READWRITE, (err) => {
@@ -184,6 +187,9 @@ function renderPageTemplates(versions, indexTemplate, contentTemplate) {
                     case HOME:
                         value = value.substring(value.lastIndexOf('\\') - 11, value.length);
                         page = page.replace('{homeScreen}', 'home-screen/' + value + '.png');
+                        break;
+                    case YEAR_DESC:
+                        page = page.replace('{yearDesc}', value);
                         break;
                     default:
                         rendered = rendered.replace(regex, value);

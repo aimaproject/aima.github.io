@@ -53,6 +53,8 @@ xhr.onreadystatechange = (e) => {
                 col16.innerHTML = disc.installer_icon;
                 let col17 = document.createElement('td');
                 col17.innerHTML = disc.home_screen;
+                let col18 = document.createElement('td');
+                col18.innerHTML = disc.year_desc;
                 row.appendChild(colEdit);
                 row.appendChild(col0);
                 row.appendChild(col1);
@@ -72,6 +74,7 @@ xhr.onreadystatechange = (e) => {
                 row.appendChild(col15);
                 row.appendChild(col16);
                 row.appendChild(col17);
+                row.appendChild(col18);
                 discsTable.appendChild(row);
             });
         } else {

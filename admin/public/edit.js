@@ -6,6 +6,7 @@ const os_url = 'http://localhost:8080/os';
 const packaging_url = 'http://localhost:8080/packaging';
 const installer_icons_url = 'http://localhost:8080/installer-icons';
 const home_screens_url = 'http://localhost:8080/home-screens';
+const year_descriptions_url = 'http://localhost:8080/year-descriptions';
 const disc_url = 'http://localhost:8080/disc/';
 
 xhr.open("GET", versions_url);
@@ -186,6 +187,32 @@ function getHomeScreens() {
                     option.innerHTML = screen.value;
                     homeScreenSelect.appendChild(option);
                 });
+                getYearDescriptions();
+            } else {
+                console.log(e);
+            };
+        };
+    };
+    xhr.send();
+};
+
+function getYearDescriptions() {
+    xhr.open("GET", year_descriptions_url);
+    xhr.onreadystatechange = (e) => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            var status = xhr.status;
+            if (status === 0 || (status >= 200 && status < 400)) {
+                let response = xhr.responseText;
+                let descriptions = JSON.parse(response).descriptions;
+                let yearDescriptionSelect = document.getElementById('year_desc');
+                descriptions.forEach((description) => {
+                    let option = document.createElement('option');
+                    option.value = description.id;
+                    option.name = description.value;
+                    option.id = description.value;
+                    option.innerHTML = description.value;
+                    yearDescriptionSelect.appendChild(option);
+                });
                 getDiscData();
             } else {
                 console.log(e);
@@ -245,6 +272,8 @@ function getDiscData() {
                 setSelected(installerIconSelect, disc.installer_icon);
                 let homeScreenSelect = document.getElementById('home_screen');
                 setSelected(homeScreenSelect, disc.home_screen);
+                let yearDescriptionSelect = document.getElementById('year_desc');
+                setSelected(yearDescriptionSelect, disc.year_desc);
             } else {
                 console.log(e);
             };
