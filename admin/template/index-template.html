@@ -1,70 +1,126 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-    <title>AOL Installation Media Archive</title>
-    <link href="main.css" rel="stylesheet">
-</head>
-<body>
-    <div style="text-align: center;">
-        <a href="index.html"><img src="logo.png"/></a>
-        <h2>By Version</h2>
-        <div align="center">
-            <a href="index1.html">1.0-1.1</a>
-            <a href="index2.html">2.0-2.7</a>
-            <a href="index3.html">3.0-3.5</a>
-            <a href="index4.html">4.0</a>
-            <a href="index5.html">5.0</a>
-            <a href="index6.html">6.0</a>
-            <a href="index7.html">7.0</a>
-            <a href="index8.html">8.0-8.0+</a>
-            <a href="index9.html">9.0-9.0TS</a>
-            <a href="indexSE.html">SE</a>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>AOL Installation Media Archive</title>
+        <link href="main.css" rel="stylesheet">
+    </head>
+    <body>
+           <body>
+        <div id="topContainer">
+            <div id="navContainer">
+                <img src="img/banner.png" useMap="#bannerMap"/>
+                <map name="bannerMap">
+                    <area shape="rect" coords="4,3,68,26" href="index.html">
+                    <area shape="rect" coords="445,9,511,26" href="deepdives.html">
+                    <area shape="rect" coords="526,9,584,26"  href="https://github.com/aimaproject/aimaproject.github.io">
+                </map>
+                <table id="nav">
+                    <tr>
+                        <td>Version {caption} catalog contains:</td>
+                        <td colspan="2">
+                            <span class="entries">176</span> <span>entries</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>You can browse this site: </td>
+                        <td rowspan="2">
+                            <b>By Version</b><br>
+                            <ul>
+                                <li><a href="index1.html">1.0-1.1</a></li>
+                                <li><a href="index2.html">2.0-2.7</a></li>
+                                <li><a href="index3.html">3.0-3.5</a></li>
+                                <li><a href="index4.html">4.0</a></li>
+                                <li><a href="index7.html">7.0</a></li>
+                                <li><a href="index8.html">8.0-8.0+</a></li>
+                                <li><a href="index9.html">9.0-9.0TS</a></li>
+                                <li><a href="indexSE.html">SE</a></li>
+                            </ul>
+                        </td>
+                        <td rowspan="2">
+                            <b>By Year</b><br>
+                            <ul>
+                                <li><a href="index1.html">1993</a></li>
+                                <li><a href="index2.html">1994</a></li>
+                                <li><a href="index2.html#7">1995</a> </li>
+                                <li><a href="index2.html#15">1996</a></li>
+                                <li><a href="index3.html#25">1997</a></li>
+                                <li><a href="index3.html#31">1998</a></li>
+                                <li><a href="index4.html#36">1999</a></li>
+                                <li><a href="index5.html#53">2000</a></li>
+                                <li><a href="index6.html#81">2001</a></li>
+                                <li><a href="index7.html#105">2002</a></li>
+                                <li><a href="index8.html#125">2003</a></li>
+                                <li><a href="index9.html#149">2004</a></li>
+                                <li><a href="index9.html#178">2005</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="{homeScreen}"></img>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <h2>By Year</h2>
-        <div align="center">
-            <a href="index1.html">1993</a>
-            <a href="index2.html">1994</a>
-            <a href="index2.html#7">1995</a>
-            <a href="index2.html#15">1996</a>
-            <a href="index3.html#25">1997</a>
-            <a href="index3.html#31">1998</a>
-            <a href="index4.html#36">1999</a>
-            <a href="index5.html#53">2000</a>
-            <a href="index6.html#81">2001</a>
-            <a href="index7.html#105">2002</a>
-            <a href="index8.html#125">2003</a>
-            <a href="index9.html#149">2004</a>
-            <a href="index9.html#178">2005</a>
+        <div id="interstitialContainer">
+            <div id="interstitialImageContainer">
+                <table>
+                    <tr>
+                        <td>✥﹤┈┈┈┈&nbsp;</td>
+                        <td><img src="{installerIcon}"></td>
+                        <td>&nbsp;┈┈┈┈﹥✥</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
         </div>
-    </div>
-    <h1>Version {caption}</h1>
-    <div class="entriesContainer">
-        <span class="entries">148</span> <span>entries</span>
-    </div>
-    <div style="text-align: center;">
-        <img src="{installerIcon}"></img>
-    </div>
-    <h2>{years}</h2>
-    <div class="homeScreen">
-        <img src="{homeScreen}"></img>
-    </div>
-    <div style="text-align: center;">
-        <div style="margin-right: 15%;margin-left: 15%;">
-            {yearDesc}
+        <div id="centerContainer">
+            <div id="contentBodyContainer">
+                <table id="contentBody">
+                    <tr>
+                        <td colspan="2">{years}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>{yearDesc}</td>
+                    </tr>
+                </table>
+            </div>
         </div>
-    </div>
-    <hr class="hr45">
-    {content}
-    <div class="links">
-        <a href={nextLink}>Next Page</a>
-    </div>
-    <div class="footer">
-        <div class="disclaimer">
-            <p>This site is for educational purposes only.I do not own the rights to the original artwork and advertising media displayed here.<br>**FAIR USE**<br>Under section 107 of the Copyright Act 1976, allowance is made for "fair use" for purposes such as criticism, comment, news reporting, teaching, scholarship, education and research.</p>
+        {content}
+        <div id="bottomContainer">
+            <div id="bottomContainerInner">
+                <table id="bottomDivider">
+                    <tr>
+                        <td colspan="3">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>AOL Installation Media Archive, 2021</td>
+                        <td><a href={nextLink}>Next Page</a></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><p>This site is for educational purposes only.I do not own the rights to the original artwork and advertising media displayed here.<br>**FAIR USE**<br>Under section 107 of the Copyright Act 1976, allowance is made for "fair use" for purposes such as criticism, comment, news reporting, teaching, scholarship, education and research.</p></td>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <div>
-            <a href="about.html">about</a>&nbsp;&middot;&nbsp;<a href="mailto:aimaproject@protonmail.com?subject=AIMA Project Correspondence">contact</a>
+        <div style="text-align: center;">
+            <img src="img/banner.png" useMap="#bannerMap"/>
         </div>
-    </div>
-</body>
+        <div id="footerContainer">
+            <div id="footerContainerInner">
+                <table id="footer">
+                    <tr>
+                        <td><img src="img/msiebutton.gif"></img></td>
+                        <td>&nbsp;&middot;&nbsp;<a href="about.html">about</a>&nbsp;&middot;&nbsp;<a href="mailto:aimaproject@protonmail.com?subject=AIMA Project Correspondence">contact</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="links">
+            
+        </div>
+    </body>
+</html>

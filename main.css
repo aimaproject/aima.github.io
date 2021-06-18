@@ -8,10 +8,6 @@ body {
     background-color: white;
 }
 
-h1,h2 {
-    text-align: center;
-}
-
 div.hiddenAll {
     visibility: hidden;
 }
@@ -24,23 +20,7 @@ img.hiddenpackage_alt_back {
     height: 0px;
 }
 
-content.table {
-    border: 1px solid #031D3F;
-    background: #E3E3E5;
-    height: 420px;
-}
-
-content.table td {
-    font-size: 12px;
-    width: 175px;
-}
-
-.links {
-    text-align: center;
-}
-
 .fileList {
-    width: 175px;
     max-height: 175px;
     overflow: auto;
 }
@@ -49,29 +29,10 @@ content.table td {
     min-height: 256px;
     overflow: auto;
     max-height: 512px;
-    width: 600px;
 }
 
 .bottom20 {
     padding-bottom: 20px;
-}
-
-.ralign {
-    text-align: right;
-}
-
-.hr45 {
-    width: 45%;
-    color: #F8F8F8;
-}
-
-.mission {
-    text-align: center;
-}
-
-.mission p {
-    max-width: 50%;
-    display: inline-block;
 }
 
 .entriesContainer {
@@ -91,10 +52,24 @@ content.table td {
     font-weight: bold;
 }
 
+.nestedTable {
+    width: 375px;
+    text-align: right;
+    font-weight: initial;
+    font-size: 0.8em;
+}
+
+.padding-10 {
+    padding: 10px;
+    min-width: 100px;
+}
+
 #topContainer,
 #centerContainer,
 #interstitialContainer,
-#bottomContainer {
+#bottomContainer,
+#horizontalRule,
+#discContentContainer {
     text-align: center;
     padding-top: 5px;
 }
@@ -102,7 +77,8 @@ content.table td {
 #navContainer,
 #contentBodyContainer,
 #interstitialImageContainer,
-#bottomContainerInner {
+#bottomContainerInner,
+#discContentBodyContainer {
     display: inline-block;
 }
 
@@ -153,17 +129,23 @@ content.table td {
      color: #6699CC;
 }
 
+#nav > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) img {
+    max-height: 215px;
+}
+
 #constructPreface {
     padding-bottom: 50px;
 }
 
-#contentBody {
+#contentBody,
+#discContentBody {
     text-align: left;
     border-collapse: collapse;
     max-width: 605px;
 }
 
-#contentBody tr {
+#contentBody tr,
+#discContentBody tr {
     background: #FFCC66;
 }
 
@@ -173,11 +155,13 @@ content.table td {
     padding: 10px;
 }
 
-#contentBody > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2) {
+#contentBody > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2),
+#discContentBody > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2) {
     background: white;
 }
 
-#contentBody > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) {
+#contentBody > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1),
+#discContentBody > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) {
     font-weight: bold;
 }
 
@@ -203,6 +187,13 @@ content.table td {
     color: white;
 }
 
+#bottomDivider > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) {
+    background-color: white;
+    text-align: center;
+    max-width: 605px;
+    font-size: 0.9em;
+}
+
 #footerContainer {
     font-size: 11px;
     text-align: center;
@@ -216,13 +207,16 @@ content.table td {
     max-width: 605px;
 }
 
-#footer > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) {
+#footer > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1),
+#bottomDivider > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2) {
     text-align: right;
 }
 
 #footer > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(2)  {
     text-align: left;
 }
+
+
 
 ul {
   list-style-position: inside;

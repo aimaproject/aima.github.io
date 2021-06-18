@@ -1,62 +1,78 @@
 <div class="bottom20">
-    <div id="{id}" style="float: right;clear: right;">
-        <table>
-            <tbody>
+    <div id="discContentContainer">
+        <div id="discContentBodyContainer">
+            <table id="discContentBody">
                 <tr>
-                    <td colspan="2" align="center">
-                        <a href="{disc_image}"><img src="{disc_imageb}" width="100px" /></a>
+                    <td></td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>
+                                    <a href="{disc_image}"><img src="{disc_imageb}" width="100px" /></a>
+                                </td>
+                                <td>
+                                    <table id="{id}" class="nestedTable">
+                                        <tbody>
+                                            <tr>
+                                                <td>Version</td>
+                                                <td>{version}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Software Date</td>
+                                                <td>{date}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Free Hours</td>
+                                                <td>{free_hours}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Format</td>
+                                                <td>{format}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Os</td>
+                                                <td>{os}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Packaging</td>
+                                                <td>{packaging}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Packaging Variants</td>
+                                                <td>{packaging_variants}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>File List</td>
+                                                <td><div class="fileList"><pre>{contents}</pre></div></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
                 <tr>
-                    <td>Version</td>
-                    <td>{version}</td>
+                    <td class="padding-10"></td>
+                    <td class="padding-10">
+                        <div>{description}</div>
+                        <h3>File Details</h3>
+                        <div class="dirList">
+                            <pre>Date        Time        Type       Size Name</pre>
+                            <pre>{details}</pre>
+                        </div>
+                        <div>
+                            <div class="hiddenAll">
+                                <h3>Additional Imagery</h3>
+                                <a href="{package_front}"><img src="{package_frontb}" height="100px" class="hiddenpackage_front"/></a>
+                                <a href="{package_back}"><img src="{package_backb}" height="100px" class="hiddenpackage_back"/></a>
+                                <a href="{package_alt_front}"><img src="{package_alt_frontb}" height="100px" class="hiddenpackage_alt_front"/></a>
+                                <a href="{package_alt_back}"><img src="{package_alt_backb}" height="100px" class="hiddenpackage_alt_back"/></a>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
-                <tr>
-                    <td>Software Date</td>
-                    <td>{date}</td>
-                </tr>
-                <tr>
-                    <td>Free Hours</td>
-                    <td>{free_hours}</td>
-                </tr>
-                <tr>
-                    <td>Format</td>
-                    <td>{format}</td>
-                </tr>
-                <tr>
-                    <td>Os</td>
-                    <td>{os}</td>
-                </tr>
-                <tr>
-                    <td>Packaging</td>
-                    <td>{packaging}</td>
-                </tr>
-                <tr>
-                    <td>Packaging Variants</td>
-                    <td>{packaging_variants}</td>
-                </tr>
-                <tr>
-                    <td>File List</td>
-                    <td><div class="fileList"><pre>{contents}</pre></div></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div>
-        <h3>Description</h3>
-        <p>{description}</p>
-        <h3>File Details</h3>
-        <div class="dirList">
-            <pre>Date        Time        Type       Size Name</pre>
-            <pre>{details}</pre>
+            </table>
         </div>
-        <div class="hiddenAll">
-            <h3>Additional Imagery</h3>
-            <a href="{package_front}"><img src="{package_frontb}" height="200px" class="hiddenpackage_front"/></a>
-            <a href="{package_back}"><img src="{package_backb}" height="200px" class="hiddenpackage_back"/></a>
-            <a href="{package_alt_front}"><img src="{package_alt_frontb}" height="200px" class="hiddenpackage_alt_front"/></a>
-            <a href="{package_alt_back}"><img src="{package_alt_backb}" height="200px" class="hiddenpackage_alt_back"/></a>
-        </div>
-        <hr class="hr45"/>
     </div>
 </div>
