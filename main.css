@@ -8,6 +8,23 @@ body {
     background-color: white;
 }
 
+ul {
+    list-style-position: inside;
+    padding-left: 0;
+}
+
+li {
+    padding-bottom: 5px;
+}
+
+a:link {
+    color: #003366;
+}
+
+a:hover {
+    color: #6699CC;
+}
+
 div.hiddenAll {
     visibility: hidden;
 }
@@ -29,6 +46,7 @@ img.hiddenpackage_alt_back {
     min-height: 256px;
     overflow: auto;
     max-height: 512px;
+    max-width: 450px;
 }
 
 .bottom20 {
@@ -50,6 +68,10 @@ img.hiddenpackage_alt_back {
 
 .entries {
     font-weight: bold;
+}
+
+.centerDiv {
+    text-align: center;
 }
 
 .nestedTable {
@@ -214,23 +236,4 @@ img.hiddenpackage_alt_back {
 
 #footer > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(2)  {
     text-align: left;
-}
-
-
-
-ul {
-  list-style-position: inside;
-  padding-left: 0;
-}
-
-li {
-    padding-bottom: 5px;
-}
-
-a:link {
-    color: #003366;
-}
-
-a:hover {
-     color: #6699CC;
 }
