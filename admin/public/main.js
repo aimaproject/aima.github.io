@@ -54,7 +54,9 @@ xhr.onreadystatechange = (e) => {
                 let col17 = document.createElement('td');
                 col17.innerHTML = disc.home_screen;
                 let col18 = document.createElement('td');
-                col18.innerHTML = disc.year_desc;
+                let yearDescriptionDiv = document.createElement('div');
+                col18.appendChild(yearDescriptionDiv);
+                yearDescriptionDiv.innerHTML = disc.year_desc;
                 row.appendChild(colEdit);
                 row.appendChild(col0);
                 row.appendChild(col1);

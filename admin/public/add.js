@@ -211,7 +211,7 @@ function getYearDescriptions() {
                     option.value = description.id;
                     option.name = description.value;
                     option.id = description.value;
-                    option.innerHTML = description.value;
+                    option.innerHTML = description.id;
                     yearDescriptionSelect.appendChild(option);
                 });
                 setDefaults();
