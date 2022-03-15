@@ -177,6 +177,11 @@ img.hiddenpackage_alt_back {
     padding: 10px;
 }
 
+#discContentBody > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1),
+#discContentBody > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1) {
+    background-color: #EFC36C;
+}
+
 #contentBody > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2),
 #discContentBody > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2) {
     background: white;
